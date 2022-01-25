@@ -1,0 +1,68 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.container {
+  width: 90%;
+  margin: 0 auto;
+}
+.btn {
+  padding: .5em 1.4em;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+}
+.btn-primary {
+  background-color: rgb(31, 26, 63);
+  color: #fff;
+}
+.btn-danger {
+  background-color: #9b1010;
+  color: #fff;
+}
+.btn-sm {
+  padding: .5em .8em;
+}
+.header {
+  text-align: center;
+  padding: 1rem;
+  background-color: rgb(31, 26, 63);
+  color: #fff;
+}
+
+.input-group {
+  display: flex;
+  margin-block: 1rem;
+}
+.form-control {
+  flex: 5;
+  padding: .7em .6em;
+  border-radius: 10px 0 0 10px;
+  border: 1px solid #757575;
+}
+.input-group button {
+  flex: 1;
+  border-radius: 0 10px 10px 0;
+}
+
+.todo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 5px 5px 10px #9191916b;
+  border: 1px solid #e6e6e66b;
+  padding: .5rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.todo-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
