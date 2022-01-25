@@ -28,15 +28,21 @@ const createTodoElement = todo => {
 
   let card = document.createElement('div');
   card.classList.add('todo');
-
+  if (todo.completed === true) {
+    card.classList.add('checked')
+  }
   let title = document.createElement('p');
   title.classList.add('todo-title');
   title.innerText = todo.title;
   title.id = todo.id;
   if (todo.completed === true) {
-    title.classList.add('checked')
+    title.classList.add('checked-title')
   }
-  
+
+  // let card2 = document.createElement('div');
+  // card2.classList.add('todo2');
+  // card2.classList.add('checked')
+
   let doneButton = document.createElement('button');
   doneButton.classList.add('btn', 'btn-done', 'btn-sm');
   doneButton.innerText = 'Done';
@@ -50,7 +56,7 @@ const createTodoElement = todo => {
   let delButton = document.createElement('button');
   delButton.classList.add('btn', 'btn-danger', 'btn-sm');
   delButton.innerText = 'X';
-  delButton.id = todo.id;
+  delButton.id = todo.title;
   if (todo.completed === true) {
     delButton.classList.add('checked-delButton')
   }
@@ -61,6 +67,7 @@ const createTodoElement = todo => {
   card.appendChild(doneButton);
   card.appendChild(undoButton);
   card.appendChild(delButton);
+  
   
   
   delButton.addEventListener('click', () => removeTodo(todo.id, card, todo.completed));
@@ -92,13 +99,14 @@ function addDone(id, todo) {
     listTodos();
 }
 
-function undoDone(id) { //ändrar inte todos.complete till false
+function undoDone(id) { 
  
   for (const obj of todos) {
     if (obj.id === id) {
       if (obj.completed === true) {
         obj.completed = false;
         changeColorBack(id);
+        listTodos();
       }
     }
   }
@@ -132,7 +140,7 @@ function changeColor(id) {
   //element2.classList.add('checked');     
 }
 
-function changeColorBack(id) {
+function changeColorBack(id) { //funkar inte för delButton
   const element = document.getElementById(id);
   element.classList.remove('checked');
   const element2 = document.getElementsByClassName('btn-danger')
