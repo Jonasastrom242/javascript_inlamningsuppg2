@@ -8,17 +8,20 @@ body {
 }
 .header {
     text-align: center;
-    padding: 1.5rem;
-    background-color: #5b90a0;
+    padding: 1rem;
+    background-color: #3572ac;
     color: white
+    
 }
 .container {
-    width: 80%;
+    width: 60%;
     margin: 0 auto;
 }
 .input-group {
-    display: flex;
+    display: flex; 
     margin-block: 1rem;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
 }
 .form-control {
     flex: 5;
@@ -33,9 +36,14 @@ body {
     border: 2px solid transparent ;
     background-color: #5c6669;
     color: white;
+    opacity: .85;
+    cursor: pointer;
+}
+.btn-add:hover {
+    opacity: 1;
 }
 .btn {
-    padding: .7rem;
+    
     border: 1px solid transparent;
     border-radius: 10px ;
     text-transform: uppercase;
@@ -43,44 +51,64 @@ body {
     cursor: pointer;
     background-color:  #5c6669;
     color: white;
+    padding: .5rem .6rem;                                                                                                                                                                                                                  
     
 }
+
 .btn-danger {
     background-color: #ff6347be;
     opacity: .5;
-}
-.btn-sm {
-    padding: .5em, .8em;
+    padding: .7rem;
 }
 .btn-done {
-    background-color: #0166a08c;
+    background-color: #0166a0;
     color: white;
     margin-right: .5rem;
+    font-size: .8rem;
+    opacity: .7;
 }
+.btn-done:hover {
+    opacity: 1 ;
+    transition-timing-function: ease-in;
+    transition-delay: 50ms;
+}
+
 .btn-undo {
     background-color: #a0a0a0;
-    color: white;
+    color: white;   
     margin-right: .5rem;
+    font-size: .8rem;
+    opacity: .7;
+}
+.btn-undo:hover {
+    opacity: 1;
+    transition-timing-function: ease-in;
+    transition-delay: 50ms;
 }
 .todo {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: left;
-    padding: .5rem;
+    padding: .3rem;
     border-radius: 15px;;
     background-color: white;
-    border: 2px solid #a0a0a0;
+    border: 1px solid #a0a0a0;
     background-color: #a0a0a01e;
-    margin-bottom: .5rem;
+    margin-bottom: .8rem;
+}
+.todo2 {
+    display: flex;
 }
 .todo-title {
     font-weight: 750;
     opacity: 1;
     color: #a0a0a0;
-    margin-right: 2rem;;
+    margin-right: 1rem;
+    font-size: 16px;
+    padding-top: .5rem;
 }
 .checked {
-    border: 2px solid #0166a08c;
+    border: 1px solid #0166a08c;
     background-color: #005d920e;
 }
 .checked-delButton {
@@ -91,7 +119,22 @@ body {
     opacity: 1;
     color: #0166a08c;
 }
-.output {
-    /* display: flex;
-    flex-direction: column; */
+@media (max-width: 1280px){
+    .container {
+        width: 80%
+    }
+}
+
+
+@media (max-width: 800px) {
+    .container {
+        width: 95%;
+    }
+}
+@media (max-width: 550px) {
+    html,body {
+       font-size: 70%; } 
+     .todo-title {
+         font-size: 12px;
+     }  
 }

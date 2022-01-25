@@ -39,9 +39,9 @@ const createTodoElement = todo => {
     title.classList.add('checked-title')
   }
 
-  // let card2 = document.createElement('div');
-  // card2.classList.add('todo2');
-  // card2.classList.add('checked')
+  let card2 = document.createElement('div');
+  card2.classList.add('todo2');
+  
 
   let doneButton = document.createElement('button');
   doneButton.classList.add('btn', 'btn-done', 'btn-sm');
@@ -63,10 +63,13 @@ const createTodoElement = todo => {
  
 
   
+  
   card.appendChild(title);
-  card.appendChild(doneButton);
-  card.appendChild(undoButton);
-  card.appendChild(delButton);
+  card.appendChild(card2);
+  card2.appendChild(doneButton);
+  card2.appendChild(undoButton);
+  card2.appendChild(delButton);
+  
   
   
   
@@ -136,14 +139,14 @@ const createNewTodo = title => {
 function changeColor(id) {
   const element = document.getElementById(id);
   element.classList.add('checked');
-  const element2 = document.getElementsByClassName('btn-danger')
+  //const element2 = document.getElementsByClassName('btn-danger')
   //element2.classList.add('checked');     
 }
 
 function changeColorBack(id) { //funkar inte för delButton
   const element = document.getElementById(id);
   element.classList.remove('checked');
-  const element2 = document.getElementsByClassName('btn-danger')
+  //const element2 = document.getElementsByClassName('btn-danger')
   //element2.classList.remove('checked');
 }
 
@@ -153,6 +156,8 @@ form.addEventListener('submit', e => {
     createNewTodo(input.value);
     input.value = '';
     input.focus()
-
+  }
+  else {
+    document.getElementById("todoInput").placeholder = "Input cannot be empty! Add todo...";
   }
 })
