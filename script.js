@@ -4,6 +4,8 @@ const output = document.querySelector('#output');
 
 let todos = [];
 
+
+
 const fetchTodos = async () => {
   const res = await fetch('https://jsonplaceholder.typicode.com/todos/?_limit=10')
   const data = await res.json()
@@ -29,48 +31,78 @@ const createTodoElement = todo => {
 
   let title = document.createElement('p');
   title.classList.add('todo-title');
-  title.innerText = todo.title
+  title.innerText = todo.title;
+  title.id = todo.id;
+  if (todo.completed === true) {
+    title.classList.add('checked')
+  }
   
   let doneButton = document.createElement('button');
   doneButton.classList.add('btn', 'btn-done', 'btn-sm');
   doneButton.innerText = 'Done';
+  
+  let undoButton = document.createElement('button');
+  undoButton.classList.add('btn', 'btn-undo', 'btn-sm');
+  undoButton.innerText = 'Undo';
+  undoButton.id = todo.id;
+  
 
   let delButton = document.createElement('button');
   delButton.classList.add('btn', 'btn-danger', 'btn-sm');
   delButton.innerText = 'X';
+  delButton.id = todo.id;
+  if (todo.completed === true) {
+    delButton.classList.add('checked-delButton')
+  }
+ 
 
   
   card.appendChild(title);
   card.appendChild(doneButton);
+  card.appendChild(undoButton);
   card.appendChild(delButton);
+  
   
   delButton.addEventListener('click', () => removeTodo(todo.id, card, todo.completed));
   doneButton.addEventListener('click', () => addDone(todo.id));
+  undoButton.addEventListener('click', () => undoDone(todo.id));
   return card;
 }
 
 function removeTodo(id, todo, completed) {
-  if (completed === true) {
+    if (completed === true) {
 
-  todos = todos.filter(todo => todo.id !== id);
-  todo.remove();
+    todos = todos.filter(todo => todo.id !== id);
+    todo.remove();
 }
  
  //Delete från databasen behöver utföras, status som returneras från db ska kollas och en ifsats läggas till för kontroll
 }
 
-function addDone(id, todo) {  //funkar men ändrar inte styling
-  for (const obj of todos) {
-    if (obj.id === id) {
-      obj.completed = true;
-  
-      break;
+function addDone(id, todo) {  
+ 
+    for (const obj of todos) {
+      if (obj.id === id) {
+        if (obj.completed === false) {
+          obj.completed = true;
+          changeColor(id);
+        }
+      }
     }
-  }
-
-  console.log(todos)
+    listTodos();
 }
 
+function undoDone(id) { //ändrar inte todos.complete till false
+ 
+  for (const obj of todos) {
+    if (obj.id === id) {
+      if (obj.completed === true) {
+        obj.completed = false;
+        changeColorBack(id);
+      }
+    }
+  }
+}
 
 const createNewTodo = title => {
   fetch('https://jsonplaceholder.typicode.com/todos', {
@@ -93,6 +125,19 @@ const createNewTodo = title => {
   })
 }
 
+function changeColor(id) {
+  const element = document.getElementById(id);
+  element.classList.add('checked');
+  const element2 = document.getElementsByClassName('btn-danger')
+  //element2.classList.add('checked');     
+}
+
+function changeColorBack(id) {
+  const element = document.getElementById(id);
+  element.classList.remove('checked');
+  const element2 = document.getElementsByClassName('btn-danger')
+  //element2.classList.remove('checked');
+}
 
 form.addEventListener('submit', e => {
   e.preventDefault();

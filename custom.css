@@ -47,13 +47,21 @@ body {
     color: white;
 }
 .btn-danger {
-    background-color: tomato;
+    background-color: #ff6347be;
+    opacity: .5;
 }
 .btn-sm {
     padding: .5em, .8em;
 }
 .btn-done {
-    background-color: #01a001;
+    background-color: #0166a08c;
+    color: white;
+    display: flex;
+    justify-content: right;
+    text-align: right;
+}
+.btn-undo {
+    background-color: #a0a0a0;
     color: white;
     display: flex;
     justify-content: right;
@@ -70,6 +78,15 @@ body {
     margin-bottom: .5rem;
 }
 .todo-title {
-    font-weight: 700;
-    color: #d82101;
+    font-weight: 750;
+    opacity: 1;
+    color: #a0a0a0;
+}
+.checked {
+    
+    opacity: .8;
+    color: #0166a08c
+}
+.checked-delButton {
+    background-color: red;
 }
