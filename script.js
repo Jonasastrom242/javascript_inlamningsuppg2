@@ -1,21 +1,22 @@
 const form = document.querySelector('#todoForm');
 const input = document.querySelector('#todoInput');
 const output = document.querySelector('#output');
-
 let todos = [];
-
-
 
 const fetchTodos = async () => {
   const res = await fetch('https://jsonplaceholder.typicode.com/todos/?_limit=10')
-  const data = await res.json()
-  todos = data;
+  if (res.status !== 200) {
+  console.log('Looks like there was a problem. Status Code: ' +
+        res.status); }
+      else {
+      const data = await res.json()
+      todos = data;
 
-  listTodos();
+      listTodos();
+      }
 }
 
 fetchTodos();
-
 
 const listTodos = () => {
   output.innerHTML = ''
@@ -64,17 +65,11 @@ const createTodoElement = todo => {
     delButton.classList.add('checked-delButton')
   }
  
-
-  
-  
   card.appendChild(title);
   card.appendChild(card2);
   card2.appendChild(doneButton);
   card2.appendChild(undoButton);
   card2.appendChild(delButton);
-  
-  
-  
   
   delButton.addEventListener('click', () => removeTodo(todo.id, card, todo.completed));
   doneButton.addEventListener('click', () => addDone(todo.id));
@@ -82,17 +77,23 @@ const createTodoElement = todo => {
   return card;
 }
 
-function removeTodo(id, todo, completed) {
-    if (completed === true) {
-      fetch('https://jsonplaceholder.typicode.com/todos', {
-        method: 'DELETE',
-      });
-    todos = todos.filter(todo => todo.id !== id);
-    todo.remove();
-
+const removeTodo = (id, todo, completed) => {
+if (completed === true) {
+  fetch('https://jsonplaceholder.typicode.com/todos/' +id, {
+    method: 'DELETE',
+  })
+  .then(res => {
+    statusCheck = res.status;
+    if (res.status !== 200) {
+      console.log('Looks like there was a problem. Status Code: ' +
+        res.status);
+        return;
+      } 
+      todos = todos.filter(todo => todo.id !== id);
+      todo.remove()
+  })    
+.catch(error => console.log(error))
 }
- 
- //Delete från databasen behöver utföras, status som returneras från db ska kollas och en ifsats läggas till för kontroll
 }
 
 function addDone(id, todo) {  
@@ -105,7 +106,7 @@ function addDone(id, todo) {
         }
       }
     }
-    listTodos();
+  listTodos();
 }
 
 function undoDone(id) { 
@@ -132,13 +133,22 @@ const createNewTodo = title => {
       completed: false
     })
   })
-  .then(res => res.json())  //lägg till kontroll av att 201 status har skickats tillbaka 
+  .then(res => {
+    if (res.status !== 201) {
+        throw new Error('Looks like there was a problem. Status Code: ' +
+        res.status)
+      }
+      else {
+        return res.json();
+      }
+  })    
   .then(data => {
     data.id = Date.now();
     todos.unshift(data);
     output.prepend(createTodoElement(data));
         
   })
+.catch(error => console.log(error.message))
 }
 
 function changeColor(id) {
