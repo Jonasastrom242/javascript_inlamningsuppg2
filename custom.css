@@ -100,9 +100,9 @@ body {
     display: flex;
 }
 .todo-title {
-    font-weight: 750;
+    font-weight: 700;
     opacity: 1;
-    color: #a0a0a0;
+    color: #807f7f;
     margin-right: 1rem;
     font-size: 16px;
     padding-top: .5rem;
@@ -114,6 +114,9 @@ body {
 .checked-delButton {
     background-color: red;
     opacity: .6;
+}
+.checked-doneButton {
+    opacity: 1;
 }
 .checked-title {
     opacity: 1;

@@ -44,17 +44,20 @@ const createTodoElement = todo => {
   
 
   let doneButton = document.createElement('button');
-  doneButton.classList.add('btn', 'btn-done', 'btn-sm');
+  doneButton.classList.add('btn', 'btn-done');
   doneButton.innerText = 'Done';
-  
+  if (todo.completed === true) {
+    doneButton.classList.add('checked-doneButton')
+  }
+
   let undoButton = document.createElement('button');
-  undoButton.classList.add('btn', 'btn-undo', 'btn-sm');
+  undoButton.classList.add('btn', 'btn-undo');
   undoButton.innerText = 'Undo';
   undoButton.id = todo.id;
   
 
   let delButton = document.createElement('button');
-  delButton.classList.add('btn', 'btn-danger', 'btn-sm');
+  delButton.classList.add('btn', 'btn-danger');
   delButton.innerText = 'X';
   delButton.id = todo.title;
   if (todo.completed === true) {
@@ -81,9 +84,12 @@ const createTodoElement = todo => {
 
 function removeTodo(id, todo, completed) {
     if (completed === true) {
-
+      fetch('https://jsonplaceholder.typicode.com/todos', {
+        method: 'DELETE',
+      });
     todos = todos.filter(todo => todo.id !== id);
     todo.remove();
+
 }
  
  //Delete från databasen behöver utföras, status som returneras från db ska kollas och en ifsats läggas till för kontroll
@@ -130,7 +136,6 @@ const createNewTodo = title => {
   .then(data => {
     data.id = Date.now();
     todos.unshift(data);
-    console.log(todos);
     output.prepend(createTodoElement(data));
         
   })
@@ -139,15 +144,11 @@ const createNewTodo = title => {
 function changeColor(id) {
   const element = document.getElementById(id);
   element.classList.add('checked');
-  //const element2 = document.getElementsByClassName('btn-danger')
-  //element2.classList.add('checked');     
 }
 
-function changeColorBack(id) { //funkar inte för delButton
+function changeColorBack(id) {
   const element = document.getElementById(id);
   element.classList.remove('checked');
-  //const element2 = document.getElementsByClassName('btn-danger')
-  //element2.classList.remove('checked');
 }
 
 form.addEventListener('submit', e => {
